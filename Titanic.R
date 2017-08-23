@@ -56,11 +56,7 @@ test$sex = factor(test$Sex)
 probs2<-as.vector(predict(train.lg2,newdata=(test), type="response"))
 mypreds <- rep(0,nrow(test))  # Initialize prediction vector
 mypreds[probs2>0.5] <- 1 # p>0.5 -> 1
-write.table(mypreds, file = "YL9QR-hw1-titanic-mypredictions.csv", row.names=F, col.names=c("Survived"), sep=",")
+pred_result = data.frame(test$PassengerId,mypreds)
+write.table(pred_result, file = "YL9QR-titanic-mypredictions.csv", row.names=F, col.names=c("PassengerID","Survived"), sep=",")
 
-mypred= read_csv("YL9QR-hw1-titanic-mypredictions.csv")
-
-#Compare
-n=length(which(gender$Survived == mypred$Survived))
-correct_rate = n/419
-#correct_rate is 0.8782816
+mypred= read_csv("YL9QR-titanic-mypredictions.csv")
